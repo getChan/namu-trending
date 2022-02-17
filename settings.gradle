@@ -1,0 +1,4 @@
+rootProject.name = 'namu-trending'
+
+include 'domain'
+include 'collector'
