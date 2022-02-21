@@ -9,6 +9,10 @@ public class CollectorConfiguration {
 
     @Bean
     public WebClient webClient() {
-        return WebClient.create();
+        return WebClient.builder()
+                .defaultHeader("User-Agent", "Getchan/0.0.1")
+                .defaultHeader("Accept", "*/*")
+                .defaultHeader("Connection", "keep-alive")
+                .build();
     }
 }

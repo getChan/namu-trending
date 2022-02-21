@@ -1,21 +1,14 @@
 package io.getchan.trending.namu.domain.collector;
 
-
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-/**
- * https://namu.wiki/sidebar.json
- */
+@ToString
 @Getter
+@Setter
 public class SidebarDTO {
-    private final String document;
-    private final String status;
-    private final long date;
-
-    public SidebarDTO(String document, String status, long date) {
-        this.document = document;
-        this.status = status;
-        this.date = date;
-    }
+    private String document;
+    private String status;
+    private long date;
 }
-
