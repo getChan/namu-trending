@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: ${PROFILE:prod}
+
+collect:
+  delay: 10 # seconds
