@@ -1,16 +1,24 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
 allprojects {
     group = 'io.getchan.trending.namu'
     version = '0.0.1-SNAPSHOT'
-}
-
-subprojects {
-    apply plugin: 'java'
-
-    sourceCompatibility = '17'
 
     repositories {
         mavenCentral()
     }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = '17'
 
     configurations {
         compileOnly {

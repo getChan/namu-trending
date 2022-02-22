@@ -1,6 +1,6 @@
 package io.getchan.trending.namu.collector;
 
-import io.getchan.trending.namu.domain.collector.Sidebar;
+import io.getchan.trending.namu.domain.NamuWikiChange;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,11 +20,11 @@ public class SidebarDTO {
     @NotEmpty
     private long date;
 
-    public Sidebar toSidebar() {
-        return Sidebar.builder()
+    public NamuWikiChange toNamuWikiChange() {
+        return NamuWikiChange.builder()
                 .documentTitle(document)
-                .updatedStatus(status)
-                .updatedAt(LocalDateTime.ofEpochSecond(date, 0, ZoneOffset.ofHours(9)))
+                .changedStatus(status)
+                .changedTime(LocalDateTime.ofEpochSecond(date, 0, ZoneOffset.ofHours(9)))
                 .build();
     }
 }
