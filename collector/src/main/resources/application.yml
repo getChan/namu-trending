@@ -2,5 +2,12 @@ spring:
   profiles:
     active: ${PROFILE:prod}
 
+influxdb:
+  host: localhost
+  port: 8086
+  token: aoob8dMzYujpLX5xOYCm84cpgvj0_gsAdzfYG8xTGC32kdRb84QFCE6Bf61fJKZwnvZQGXZxoV1nRGZZcTyI-g==
+  org: getchan
+  bucket: getchan
+
 collect:
   delay: 10 # seconds

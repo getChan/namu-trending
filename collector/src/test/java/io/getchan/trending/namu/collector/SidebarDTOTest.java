@@ -15,6 +15,6 @@ class SidebarDTOTest {
         sidebarDTO.setDocument("전기면도기");
 
         final NamuWikiChange namuWikiChange = sidebarDTO.toNamuWikiChange();
-        assertThat(namuWikiChange.getChangedTime().toString()).isEqualTo("2022-02-22T23:09:06");
+        assertThat(namuWikiChange.getChangedTime()).hasToString("2022-02-22T23:09:06");
     }
 }
