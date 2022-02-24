@@ -3,11 +3,10 @@ spring:
     active: ${PROFILE:prod}
 
 influxdb:
-  host: localhost
-  port: 8086
+  url: http://localhost:8086
   token: aoob8dMzYujpLX5xOYCm84cpgvj0_gsAdzfYG8xTGC32kdRb84QFCE6Bf61fJKZwnvZQGXZxoV1nRGZZcTyI-g==
   org: getchan
-  bucket: getchan
+  bucket: NamuWikiChange
 
 collect:
   delay: 10 # seconds
