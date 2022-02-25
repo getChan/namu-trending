@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Builder
 @Getter
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class NamuWikiChange {
     private final String documentTitle;
     private final String changedStatus;
-    private final LocalDateTime changedTime;
+    private final Instant changedTime;
 
     @Override
     public boolean equals(Object o) {

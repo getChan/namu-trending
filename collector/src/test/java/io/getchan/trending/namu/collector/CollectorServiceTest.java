@@ -22,7 +22,7 @@ class CollectorServiceTest {
         final List<SidebarDTO> sidebarDTOs = collectorService.requestSidebarDTO()
                 .toStream().toList();
 
-        assertThat(sidebarDTOs.size()).isGreaterThan(1);
+        assertThat(sidebarDTOs).hasSizeGreaterThan(1);
     }
 
     @Test

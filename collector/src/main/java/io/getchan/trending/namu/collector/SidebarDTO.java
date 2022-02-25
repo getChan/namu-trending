@@ -6,8 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.Instant;
 
 @ToString
 @Getter
@@ -24,7 +23,7 @@ public class SidebarDTO {
         return NamuWikiChange.builder()
                 .documentTitle(document)
                 .changedStatus(status)
-                .changedTime(LocalDateTime.ofEpochSecond(date, 0, ZoneOffset.ofHours(9)))
+                .changedTime(Instant.ofEpochSecond(date))
                 .build();
     }
 }

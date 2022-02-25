@@ -6,7 +6,6 @@ import io.getchan.trending.namu.domain.NamuWikiChange;
 import lombok.Getter;
 
 import java.time.Instant;
-import java.time.ZoneOffset;
 
 /**
  * InfluxDB identifies unique data points by their measurement, tag set, and timestamp (each a part of Line protocol used to write data to InfluxDB).
@@ -31,7 +30,7 @@ public class NamuWikiChangeEntity {
         return new NamuWikiChangeEntity(
                 namuWikiChange.getDocumentTitle(),
                 namuWikiChange.getChangedStatus(),
-                namuWikiChange.getChangedTime().toInstant(ZoneOffset.ofHours(9)));
+                namuWikiChange.getChangedTime());
     }
 
 }
