@@ -1,4 +1,4 @@
-package io.getchan.trending.namu.collector.repository;
+package io.getchan.trending.namu.domain.repository;
 
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;

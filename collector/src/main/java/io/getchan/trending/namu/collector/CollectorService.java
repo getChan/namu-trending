@@ -1,7 +1,7 @@
 package io.getchan.trending.namu.collector;
 
-import io.getchan.trending.namu.collector.repository.NamuWikiChangeEntity;
-import io.getchan.trending.namu.collector.repository.NamuWikiChangeRepository;
+import io.getchan.trending.namu.domain.repository.NamuWikiChangeEntity;
+import io.getchan.trending.namu.domain.repository.NamuWikiChangeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

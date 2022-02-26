@@ -2,3 +2,4 @@ rootProject.name = 'namu-trending'
 
 include 'domain'
 include 'collector'
+include 'api'

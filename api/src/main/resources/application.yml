@@ -7,6 +7,3 @@ influxdb:
   token: aoob8dMzYujpLX5xOYCm84cpgvj0_gsAdzfYG8xTGC32kdRb84QFCE6Bf61fJKZwnvZQGXZxoV1nRGZZcTyI-g==
   org: getchan
   bucket: NamuWikiChange
-
-collect:
-  delay: 10 # seconds
