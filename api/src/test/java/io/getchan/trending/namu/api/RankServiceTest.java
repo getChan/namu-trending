@@ -24,6 +24,7 @@ class RankServiceTest {
 
         final List<ChangeCount> changeRank = rankService.dayRank(10);
 
+        System.out.println("changeRank = " + changeRank);
         assertThat(changeRank)
                 .hasSizeBetween(0, 10)
                 .isSortedAccordingTo(Comparator.comparingLong(ChangeCount::getCount).reversed());

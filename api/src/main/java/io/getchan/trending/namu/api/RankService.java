@@ -17,13 +17,22 @@ public class RankService {
         this.namuWikiChangeRepository = namuWikiChangeRepository;
     }
 
+
+    public List<ChangeCount> dayRank(int topN) {
+        return countByTitleNow(topN, Instant.now().minus(1, ChronoUnit.DAYS));
+    }
+
+    public List<ChangeCount> weekRank(int topN) {
+        return countByTitleNow(topN, Instant.now().minus(7, ChronoUnit.DAYS));
+    }
+
     /**
-     * @implNote limit 값에 상관없이 1일간의 모든 랭킹을 가져옴. 미리 정렬된 테이블(뷰)을 생성해두면 성능 개선될 듯.
+     * @implNote topN 값에 상관없이 기간내 모든 랭킹을 가져옴. 미리 정렬된 테이블(뷰)을 생성해두면 성능 개선될 듯.
      */
-    public List<ChangeCount> dayRank(int limit) {
-        return namuWikiChangeRepository.countByTitle(Instant.now().minus(1, ChronoUnit.DAYS), Instant.now())
+    private List<ChangeCount> countByTitleNow(int topN, Instant start) {
+        return namuWikiChangeRepository.countByTitle(start, Instant.now())
                 .sorted(Comparator.comparingLong(ChangeCount::getCount).reversed())
-                .limit(limit)
+                .limit(topN)
                 .toList();
     }
 }
