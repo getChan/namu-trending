@@ -47,4 +47,20 @@ public class InfluxNamuWikiChangeRepository implements NamuWikiChangeRepository 
                         .build());
     }
 
+    @Override
+    public Stream<NamuWikiChangeEntity> findAll(String title, Instant start, Instant stop) {
+        final String query = """
+                from(bucket: "NamuWikiChange")
+                  |> range(start: %s, stop: %s)
+                  |> filter(fn: (r) => r["_measurement"] == "namuWikiChange")
+                  |> filter(fn: (r) => r["documentTitle"] == "%s")
+                  |> rename(columns: {_time: "changedTime", _value: "changedStatus"})
+                  """.formatted(start.toString(), stop.toString(), title);
+
+        final List<NamuWikiChangeEntity> tables = queryApi.query(query, NamuWikiChangeEntity.class);
+        log.info("query result row count : {}", tables.size());
+
+        return tables.stream();
+    }
+
 }

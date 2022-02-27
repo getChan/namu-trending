@@ -1,5 +1,6 @@
 package io.getchan.trending.namu.api;
 
+import io.getchan.trending.namu.api.service.RankService;
 import io.getchan.trending.namu.domain.ChangeCount;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

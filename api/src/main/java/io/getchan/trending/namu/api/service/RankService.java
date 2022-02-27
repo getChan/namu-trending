@@ -1,4 +1,4 @@
-package io.getchan.trending.namu.api;
+package io.getchan.trending.namu.api.service;
 
 import io.getchan.trending.namu.domain.ChangeCount;
 import io.getchan.trending.namu.domain.repository.NamuWikiChangeRepository;

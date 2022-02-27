@@ -1,5 +1,6 @@
-package io.getchan.trending.namu.api;
+package io.getchan.trending.namu.api.controller;
 
+import io.getchan.trending.namu.api.service.RankService;
 import io.getchan.trending.namu.domain.ChangeCount;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,11 @@ public class RankController {
 
     @GetMapping("/day")
     public List<ChangeCount> dayRank() {
-        return rankService.dayRank(10);
+        return rankService.dayRank(20);
     }
 
     @GetMapping("/week")
     public List<ChangeCount> weekRank() {
-        return rankService.weekRank(10);
+        return rankService.weekRank(20);
     }
 }

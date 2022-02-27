@@ -28,4 +28,9 @@ public class InfluxNamuWikiChangeRepository implements NamuWikiChangeRepository 
         throw new UnsupportedOperationException("not implemented");
     }
 
+    @Override
+    public Stream<NamuWikiChangeEntity> findAll(String title, Instant start, Instant stop) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+
 }
