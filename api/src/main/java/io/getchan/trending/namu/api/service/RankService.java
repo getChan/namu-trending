@@ -1,5 +1,6 @@
 package io.getchan.trending.namu.api.service;
 
+import io.getchan.trending.namu.api.util.ExecutionTime;
 import io.getchan.trending.namu.domain.ChangeCount;
 import io.getchan.trending.namu.domain.repository.NamuWikiChangeRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class RankService {
     }
 
 
+    @ExecutionTime
     public List<ChangeCount> dayRank(int topN) {
         return countByTitleNow(topN, Instant.now().minus(1, ChronoUnit.DAYS));
     }
