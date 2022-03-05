@@ -11,13 +11,19 @@ import org.springframework.util.StopWatch;
 @Aspect
 @Slf4j
 public class ExecutionTimeAspect {
-    private static final StopWatch stopWatch = new StopWatch();
 
     @Around("@annotation(io.getchan.trending.namu.api.util.ExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        final StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        final Object proceed = joinPoint.proceed();
-        log.info(stopWatch.shortSummary());
-        return proceed;
+        final Object proceed;
+        try {
+            proceed = joinPoint.proceed();
+            return proceed;
+        } finally {
+            stopWatch.stop();
+            log.info("{} : {} ms", joinPoint.getSignature().toShortString(), stopWatch.getTotalTimeMillis());
+        }
+
     }
 }

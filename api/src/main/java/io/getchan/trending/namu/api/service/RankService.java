@@ -18,12 +18,12 @@ public class RankService {
         this.namuWikiChangeRepository = namuWikiChangeRepository;
     }
 
-
     @ExecutionTime
     public List<ChangeCount> dayRank(int topN) {
         return countByTitleNow(topN, Instant.now().minus(1, ChronoUnit.DAYS));
     }
 
+    @ExecutionTime
     public List<ChangeCount> weekRank(int topN) {
         return countByTitleNow(topN, Instant.now().minus(7, ChronoUnit.DAYS));
     }
