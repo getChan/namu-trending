@@ -10,3 +10,7 @@ influxdb:
 
 collect:
   delay: 10 # seconds
+
+last-collected-set:
+  limit: 15
+  json-file: src/main/resources/lastCollect.json

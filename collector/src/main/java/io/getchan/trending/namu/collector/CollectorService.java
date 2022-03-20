@@ -20,18 +20,22 @@ public class CollectorService {
 
     private final WebClient webClient;
     private final NamuWikiChangeRepository namuWikiChangeRepository;
+    private final LastCollectedList lastCollectedList;
 
-    public CollectorService(WebClient webClient, NamuWikiChangeRepository namuWikiChangeRepository) {
+    public CollectorService(WebClient webClient, NamuWikiChangeRepository namuWikiChangeRepository, LastCollectedList lastCollectedList) {
         this.webClient = webClient;
         this.namuWikiChangeRepository = namuWikiChangeRepository;
+        this.lastCollectedList = lastCollectedList;
     }
 
     @Scheduled(fixedDelayString = "${collect.delay}", timeUnit = TimeUnit.SECONDS)
     public void collect() {
         requestSidebarDTO()
                 .map(SidebarDTO::toNamuWikiChange)
-                .doOnNext(namuWiki -> log.info("{}", namuWiki))
+                .filter(namuWikiChange -> !lastCollectedList.contains(namuWikiChange))
+                .doOnNext(lastCollectedList::add)
                 .map(NamuWikiChangeEntity::from)
+                .doOnNext(namuWikiEntity -> log.info("Collect : {}", namuWikiEntity.getDocumentTitle()))
                 .subscribe(namuWikiChangeRepository::save)
                 .isDisposed();
     }
