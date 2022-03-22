@@ -1,6 +1,5 @@
 package io.getchan.trending.namu.collector;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,9 +22,4 @@ class CollectorServiceTest {
         assertThat(sidebarDTOs).hasSizeGreaterThan(1);
     }
 
-    @Test
-    @Disabled
-    void collect() {
-        collectorService.collect();
-    }
 }

@@ -39,14 +39,28 @@ public class LastCollectedList {
         objectMapper.writeValue(jsonFile, this.namuWikiChanges);
     }
 
-    public boolean contains(NamuWikiChange namuWikiChange) {
+    private boolean contains(NamuWikiChange namuWikiChange) {
         return namuWikiChanges.contains(namuWikiChange);
     }
 
-    public void add(NamuWikiChange namuWikiChange) {
+    private void add(NamuWikiChange namuWikiChange) {
         this.namuWikiChanges.add(namuWikiChange);
         if (namuWikiChanges.size() > limit) {
             namuWikiChanges.remove(0);
+        }
+    }
+
+    /**
+     * @return true if not exist
+     */
+    public boolean addIfNotExists(NamuWikiChange newNamuWiki) {
+        synchronized (namuWikiChanges) {
+            if (this.contains(newNamuWiki)) {
+                return false;
+            } else {
+                this.add(newNamuWiki);
+                return true;
+            }
         }
     }
 }

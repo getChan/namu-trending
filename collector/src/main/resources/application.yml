@@ -1,12 +1,14 @@
 spring:
   profiles:
     active: ${PROFILE:dev}
-
-influxdb:
-  url: http://localhost:8086
-  token: aoob8dMzYujpLX5xOYCm84cpgvj0_gsAdzfYG8xTGC32kdRb84QFCE6Bf61fJKZwnvZQGXZxoV1nRGZZcTyI-g==
-  org: getchan
-  bucket: NamuWikiChange
+  cloud:
+    function:
+      bindings:
+        sendEvents-out-0: output
+    stream:
+      bindings:
+        output:
+          destination: namu-wiki-change
 
 collect:
   delay: 10 # seconds
@@ -14,3 +16,7 @@ collect:
 last-collected-set:
   limit: 15
   json-file: src/main/resources/lastCollect.json
+
+logging:
+  level:
+    root: info
