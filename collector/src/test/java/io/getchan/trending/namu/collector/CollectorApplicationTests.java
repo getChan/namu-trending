@@ -1,6 +1,6 @@
 package io.getchan.trending.namu.collector;
 
-import io.getchan.trending.namu.domain.NamuWikiChange;
+import io.getchan.trending.namu.domain.NamuWikiChangeMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -11,6 +11,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.converter.CompositeMessageConverter;
 import org.springframework.messaging.converter.MessageConverter;
+
+import java.time.Instant;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +25,7 @@ class CollectorApplicationTests {
     }
 
     @Test
-    public void testEventSender() {
+    void testEventSender() {
         try (ConfigurableApplicationContext context = new SpringApplicationBuilder(
                 TestChannelBinderConfiguration
                         .getCompleteConfiguration(CollectorApplication.class))
@@ -34,10 +36,12 @@ class CollectorApplicationTests {
             Message<byte[]> sourceMessage = target.receive(10000);
 
             final MessageConverter converter = context.getBean(CompositeMessageConverter.class);
-            NamuWikiChange namuWikiChange = (NamuWikiChange) converter
-                    .fromMessage(sourceMessage, NamuWikiChange.class);
+            NamuWikiChangeMessage namuWikiChange = (NamuWikiChangeMessage) converter
+                    .fromMessage(sourceMessage, NamuWikiChangeMessage.class);
 
             assertThat(namuWikiChange.getDocumentTitle()).isNotBlank();
+            assertThat(namuWikiChange.getChangedStatus()).isNotNull();
+            assertThat(namuWikiChange.getChangedTime()).isBefore(Instant.now());
         }
     }
 }
