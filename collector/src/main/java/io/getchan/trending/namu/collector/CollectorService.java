@@ -3,7 +3,6 @@ package io.getchan.trending.namu.collector;
 import io.getchan.trending.namu.domain.NamuWikiChange;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -14,7 +13,6 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Service
-@EnableScheduling
 public class CollectorService {
     private static final URI TARGET_URI = URI.create("https://namu.wiki/sidebar.json");
 

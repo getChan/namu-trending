@@ -22,4 +22,10 @@ class CollectorServiceTest {
         assertThat(sidebarDTOs).hasSizeGreaterThan(1);
     }
 
+    @Test
+    void collect() {
+        collectorService.collect();
+        assertThat(collectorService.collect().count()).isLessThan(15);
+    }
+
 }
