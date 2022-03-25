@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
 import java.net.URI;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -18,29 +18,31 @@ public class CollectorService {
 
     private final WebClient webClient;
     private final LastCollectedList lastCollectedList;
-    private final int crawlDelaySeconds;
+    private final long crawlDelayMillis;
+    private final AtomicLong nextCrawlTimeMillis = new AtomicLong(System.currentTimeMillis());
 
     public CollectorService(WebClient webClient, LastCollectedList lastCollectedList,
                             @Value("${collect.delay}") int crawlDelaySeconds) {
         this.webClient = webClient;
         this.lastCollectedList = lastCollectedList;
-        this.crawlDelaySeconds = crawlDelaySeconds;
+        this.crawlDelayMillis = crawlDelaySeconds * 1000L;
     }
 
+
     public Stream<NamuWikiChange> collect() {
+        synchronized (nextCrawlTimeMillis) {
+            if (nextCrawlTimeMillis.get() <= System.currentTimeMillis()) {
+                nextCrawlTimeMillis.addAndGet(crawlDelayMillis);
 
-        try {
-            Thread.sleep(TimeUnit.SECONDS.toMillis(crawlDelaySeconds));
-        } catch (InterruptedException ie) {
-            log.info("Cancel waiting crawlDelay", ie);
-            Thread.currentThread().interrupt();
+                return requestSidebarDTO()
+                        .map(SidebarDTO::toNamuWikiChange)
+                        .filter(lastCollectedList::addIfNotExists)
+                        .doOnNext(wikiChange -> log.info("Collect : {}", wikiChange.getDocumentTitle()))
+                        .toStream();
+            } else {
+                return Stream.empty();
+            }
         }
-        return requestSidebarDTO()
-                .map(SidebarDTO::toNamuWikiChange)
-                .filter(lastCollectedList::addIfNotExists)
-                .doOnNext(wikiChange -> log.info("Collect : {}", wikiChange.getDocumentTitle()))
-                .toStream();
-
     }
 
     public Flux<SidebarDTO> requestSidebarDTO() {

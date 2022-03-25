@@ -19,3 +19,9 @@ last-collected-set:
 logging:
   level:
     root: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
