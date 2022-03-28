@@ -1,6 +1,7 @@
 package io.getchan.trending.namu.collector;
 
 import io.getchan.trending.namu.domain.NamuWikiChangeMessage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -18,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
+@Disabled(value = "Flux, PollableBean의 경우 테스트 불가능")
 class CollectorApplicationTests {
 
     @Test
@@ -35,6 +37,7 @@ class CollectorApplicationTests {
             OutputDestination target = context.getBean(OutputDestination.class);
             Message<byte[]> sourceMessage = target.receive(10000);
 
+            assertThat(sourceMessage).isNotNull();
             final MessageConverter converter = context.getBean(CompositeMessageConverter.class);
             NamuWikiChangeMessage namuWikiChange = (NamuWikiChangeMessage) converter
                     .fromMessage(sourceMessage, NamuWikiChangeMessage.class);

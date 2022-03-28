@@ -1,14 +1,6 @@
 spring:
   profiles:
     active: ${PROFILE:dev}
-  cloud:
-    function:
-      bindings:
-        sendEvents-out-0: output
-    stream:
-      bindings:
-        output:
-          destination: namu-wiki-change
 
 collect:
   delay: 10 # seconds

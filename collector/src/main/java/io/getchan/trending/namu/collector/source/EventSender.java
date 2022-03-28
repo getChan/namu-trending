@@ -2,7 +2,7 @@ package io.getchan.trending.namu.collector.source;
 
 import io.getchan.trending.namu.collector.CollectorService;
 import io.getchan.trending.namu.domain.NamuWikiChangeMessage;
-import org.springframework.context.annotation.Bean;
+import org.springframework.cloud.function.context.PollableBean;
 import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Flux;
 
@@ -17,7 +17,7 @@ public class EventSender {
         this.collectorService = collectorService;
     }
 
-    @Bean
+    @PollableBean()
     public Supplier<Flux<NamuWikiChangeMessage>> sendEvents() {
         return () ->
                 Flux.fromStream(collectorService.collect().map(NamuWikiChangeMessage::from));
